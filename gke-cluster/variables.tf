@@ -20,34 +20,45 @@ variable name {
   description = "Name to be used as part of created resources' names"
 }
 
-# network module
+# network
 variable network_tier {
   type        = string
   default     = "STANDARD"
   description = "GCP network service tier (PREMIUM | STANDARD)"
 }
-variable network_cidr_block {
+
+variable subnet_primary_cidr {
   type = string
-  default = "10.0.0.0/16"
-  description = "IP Range for entire network"  
+  default = "10.0.0.0/24"
+  description = "Primary IP Range for cluster subnet"  
 }
-variable subnet_cidr_offset {
-  type = number
-  default = 8
-  description = "Offset to determine CIDR mask for created subnets, determined from 'network_cidr_block' variable"
+variable subnet_k8s_pod_cidr {
+  type = string
+  default = "10.48.0.0/14"
+  description = "Secondary IP Range for cluster pods"  
+}
+variable subnet_k8s_svc_cidr {
+  type = string
+  default = "10.52.0.0/20"
+  description = "Secondary IP Range for cluster services"  
 }
 
-# gke module
+# cluster
 variable cluster_description {
   type        = string
   default     = ""
   description = "Cluster description"
 }
-
 variable is_private_cluster {
   type        = bool
   default     = true
   description = "Whether to deploy worker nodes without external IPs"
+}
+
+variable networking_mode {
+  type        = string  
+  default     = "VPC_NATIVE"
+  description = "Networking mode (VPC_NATIVE | ROUTES)"
 }
 
 variable is_zonal_cluster {
@@ -65,6 +76,27 @@ variable cluster_master_cidr {
   description = "The IP range in CIDR notation to use for the hosted master network"
 }
 
+variable enable_logging_service {
+  type        = bool
+  default     = false
+  description = "Whether to enable managed logging service"
+}
+variable enable_monitoring_service {
+  type        = bool
+  default     = false
+  description = "Whether to enable managed monitoring service"
+}
+variable enable_managed_prometheus {
+  type        = bool
+  default     = false
+  description = "Whether to enable managed prometheus service"
+}
+variable release_channel {
+  type        = string
+  default     = "REGULAR"
+  description = "Release channel for control plane kubernetes version (UNSPECIFIED | RAPID | REGULAR | STABLE)"
+}
+
 variable node_count {
   type        = number
   default     = 1
@@ -75,12 +107,6 @@ variable node_group_machine_type {
   default     = "e2-small"
   description = "Machine type for node group"
 }
-variable preemptible_nodes {
-  type        = bool
-  default     = false
-  description = "Whether nodes are preemptible nodes, set to true only for fault-tolerant workloads"
-}
-
 variable node_group_auto_repair {
   type        = bool
   default     = true
@@ -90,20 +116,4 @@ variable node_group_auto_upgrade {
   type        = bool
   default     = true
   description = "Whether to auto upgrade nodes in the node group"
-}
-
-variable logging_service {
-  type        = string
-  default     = "none"
-  description = "Managed logging service (logging.googleapis.com | logging.googleapis.com/kubernetes | none)"
-}
-variable monitoring_service {
-  type        = string
-  default     = "none"
-  description = "Managed monitoring service (monitoring.googleapis.com | monitoring.googleapis.com/kubernetes | none)"
-}
-variable enable_managed_prometheus {
-  type        = bool
-  default     = false
-  description = "Whether to enable managed prometheus service"
 }

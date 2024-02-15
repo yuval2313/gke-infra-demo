@@ -16,12 +16,18 @@ resource "google_container_cluster" "cluster" {
   remove_default_node_pool = true
   initial_node_count       = 1
   
-  logging_service          = var.logging_service
-  monitoring_service       = var.monitoring_service
+  logging_service          = var.enable_logging_service ? "logging.googleapis.com/kubernetes" : "none"
+  monitoring_service       = var.enable_monitoring_service ? "monitoring.googleapis.com/kubernetes" : "none"
 
   release_channel {
     channel = var.release_channel
   }
+
+  ip_allocation_policy {
+    cluster_secondary_range_name  = var.cluster_secondary_range_name
+    services_secondary_range_name = var.services_secondary_range_name
+  }
+
 
   private_cluster_config {
     enable_private_nodes    = var.is_private_cluster
@@ -34,10 +40,6 @@ resource "google_container_cluster" "cluster" {
         enabled = true
     }
   }  
-}
-
-resource "google_service_account" "kubernetes" {
-  account_id = "kubernetes"
 }
 
 resource "google_container_node_pool" "main" {
@@ -53,7 +55,7 @@ resource "google_container_node_pool" "main" {
   node_config {
     machine_type = var.node_group_machine_type
 
-    service_account = google_service_account.kubernetes.email
+    service_account = var.service_account_email
     oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform"
     ]

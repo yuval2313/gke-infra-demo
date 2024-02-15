@@ -8,7 +8,7 @@ terraform {
 
   backend "gcs" {
     bucket  = "yuv-tf-backend"
-    prefix  = "terraform/state"
+    prefix  = "terraform/gke/state"
   }
 }
 
