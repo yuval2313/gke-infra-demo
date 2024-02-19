@@ -18,6 +18,11 @@ resource "google_container_cluster" "cluster" {
   
   logging_service          = var.enable_logging_service ? "logging.googleapis.com/kubernetes" : "none"
   monitoring_service       = var.enable_monitoring_service ? "monitoring.googleapis.com/kubernetes" : "none"
+  monitoring_config {
+    managed_prometheus {
+      enabled = var.enable_managed_prometheus
+    }
+  }
 
   release_channel {
     channel = var.release_channel
