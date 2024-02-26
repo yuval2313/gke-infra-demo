@@ -52,7 +52,7 @@ module gke {
   
   enable_logging_service = var.enable_logging_service
   enable_monitoring_service = var.enable_monitoring_service
-  enable_managed_prometheus = var.enable_managed_prometheus
+  # enable_managed_prometheus = var.enable_managed_prometheus
   release_channel = var.release_channel
 
   service_account_email = module.security.service_account_email

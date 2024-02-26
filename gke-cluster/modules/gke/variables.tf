@@ -61,11 +61,11 @@ variable enable_monitoring_service {
   default     = false
   description = "Whether to enable managed monitoring service"
 }
-variable enable_managed_prometheus {
-  type        = bool
-  default     = false
-  description = "Whether to enable managed prometheus service"
-}
+# variable enable_managed_prometheus {
+#   type        = bool
+#   default     = false
+#   description = "Whether to enable managed prometheus service"
+# }
 variable release_channel {
   type        = string
   default     = "REGULAR"
