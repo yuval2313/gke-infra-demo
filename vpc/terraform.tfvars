@@ -1,0 +1,9 @@
+g_project = "lyuval-playground"
+g_region = "europe-north1"
+g_credentials = null
+name = "demo-vpc"
+network_tier = "STANDARD"
+network_cidr_block = "10.0.0.0/16"
+subnet_cidr_offset = 8
+public_subnets_count = 2
+private_subnets_count = 2
