@@ -1,7 +1,7 @@
 g_project = "lyuval-playground"
 g_region = "europe-north1"
-g_credentials = null
-name_prefix = "argocd-demo"
+g_credentials = null # Use 'gcloud auth application-default login' to get credentials
+name_prefix = "hpa-demo"
 vpc_network_tier = "STANDARD"
 vpc_subnet_primary_range = "10.0.0.0/24"
 vpc_subnet_pod_range = "10.48.0.0/14"
