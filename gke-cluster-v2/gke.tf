@@ -18,7 +18,8 @@ module "gke" {
   ip_range_pods           = local.vpc_subnet_pod_range_name
   ip_range_services       = local.vpc_subnet_svc_range_name
   
-  create_service_account = true
+  create_service_account = false
+  service_account = google_service_account.gke_sa.email
 
   logging_service                      = var.gke_enable_logging_service ? "logging.googleapis.com/kubernetes" : "none"
   monitoring_service                   = var.gke_enable_monitoring_service ? "monitoring.googleapis.com/kubernetes" : "none"

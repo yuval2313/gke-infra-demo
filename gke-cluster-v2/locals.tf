@@ -3,6 +3,7 @@ locals {
   
   gke_cluster_name = "${local.name}-cluster"
   gke_node_group_name = "${local.name}-ng"
+  gke_sa_name = "${local.name}-sa"
 
   vpc_name = "${local.name}-vpc"
   vpc_subnet_name = "${local.name}-subnet"
